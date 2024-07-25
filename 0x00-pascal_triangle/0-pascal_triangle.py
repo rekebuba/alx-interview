@@ -13,18 +13,16 @@ def pascal_triangle(n):
         return [[]]
 
     triangle = [[1]]
-    result = []
 
     for i in range(n - 1):
+        result = []
         for j in range(len(triangle[i])):
             try:
                 result.append(triangle[i][j] + triangle[i][j + 1])
             except IndexError:
-                pass
+                result.insert(0, 1)
+                result.append(1)
 
-        result.insert(0, 1)
-        result.append(1)
         triangle.append(result)
-        result = []
 
     return triangle
