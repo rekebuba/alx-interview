@@ -9,7 +9,7 @@ def pascal_triangle(n):
     the Pascal's triangle of a given integer.
     '''
     if type(n) is not int or n <= 0:
-        return [[]]
+        return []
 
     triangle = [[1]]
 
