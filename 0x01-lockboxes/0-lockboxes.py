@@ -26,20 +26,17 @@ def canUnlockAll(boxes):
     Returns:
         boolean: True if all boxes can be opened, else return False
     """
-    availableKeys = [key for key in boxes[0]]
-    openedBoxes = [0]
+    availableKeys = set(boxes[0])
+    openedBoxes = set([0])
 
     while availableKeys:
+        newKeys = set()
         for key in availableKeys:
-            if key not in openedBoxes:
-                openedBoxes.append(key)
+            if key not in openedBoxes and key < len(boxes):
+                openedBoxes.add(key)
+                newKeys.update(boxes[key])
 
-        availableKeys = []
-        for key in openedBoxes:
-            if key < len(boxes):
-                for newKey in boxes[key]:
-                    if newKey not in openedBoxes:
-                        availableKeys.append(newKey)
+        availableKeys = newKeys - openedBoxes
 
     requiredKeys = set(range(len(boxes)))
 
