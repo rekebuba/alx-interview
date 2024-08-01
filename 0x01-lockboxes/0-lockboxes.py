@@ -38,6 +38,5 @@ def canUnlockAll(boxes):
 
         availableKeys = newKeys - openedBoxes
 
-    requiredKeys = set(range(len(boxes)))
 
-    return requiredKeys.issubset(openedBoxes)
+    return len(openedBoxes) == len(boxes)
