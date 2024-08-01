@@ -38,5 +38,4 @@ def canUnlockAll(boxes):
 
         availableKeys = newKeys - openedBoxes
 
-
     return len(openedBoxes) == len(boxes)
