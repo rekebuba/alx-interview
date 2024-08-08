@@ -13,7 +13,7 @@ def minOperations(n) -> int:
         int: minimum number of operations needed
         to make the resulting string exactly of length n.
     """
-    if not isinstance(n, int) or n == 1 or n == 0:
+    if not isinstance(n, int) or n <= 1:
         return 0
 
     copy = 1
