@@ -2,7 +2,7 @@
 """Minimum Number of Copy / Paste Operations"""
 
 
-def minOperations(n: int) -> int:
+def minOperations(n) -> int:
     """calculates the fewest number of operations needed
     to result in exactly n H characters in the file.
 
@@ -13,7 +13,7 @@ def minOperations(n: int) -> int:
         int: minimum number of operations needed
         to make the resulting string exactly of length n.
     """
-    if n == 1:
+    if not isinstance(n, int) or n == 1:
         return 0
 
     copy = 1
