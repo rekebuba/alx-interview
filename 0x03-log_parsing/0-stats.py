@@ -37,10 +37,10 @@ def statistics(status_codes: dict, file_size: int) -> None:
         status_codes (dict): available status in dictionary
         file_size (int): accumulated file size
     """
-    print(f"File size: {file_size}")
+    print("File size: {}".format(file_size))
     for key, value in status_codes.items():
         if value != 0:
-            print(f"{key}: {value}")
+            print("{}: {}".format(key, value))
 
 
 def main():
