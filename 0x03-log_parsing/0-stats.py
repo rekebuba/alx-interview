@@ -7,10 +7,10 @@ and a SIGINT (Ctrl+C) signal gracefully.
 """
 import sys
 import re
-from typing import Tuple, List, Any
+from typing import Tuple, List
 
 
-def validity(patterns: List[str], values: Tuple[str | Any, ...]) -> bool:
+def validity(patterns: List[str], values: Tuple[str, ...]) -> bool:
     """_summary_
 
     Args:
@@ -44,12 +44,13 @@ def statistics(status_codes: dict, file_size: int) -> None:
 
 
 def main():
+    """main"""
     pattern = r'^([\.|\d]*) - \[([^]]*)\] "([^"]*)" (\d*) (\d*)$'
     valid_ip = r'^(\d*.\d*){3}'
     valid_date = r'^\d{4}(-\d{2}){2} (\d|:|\.)*'
     valid_request = r'^GET \/projects\/260 HTTP\/1.1'
-    valid_status = r'^.*'
-    valid_size = r'^.*'
+    valid_status = r'^\d{3}$'
+    valid_size = r'^\d+$'
 
     list_of_patterns = [valid_ip, valid_date,
                         valid_request, valid_status, valid_size]
@@ -80,5 +81,4 @@ def main():
 
 
 if __name__ == '__main__':
-    """Main function"""
     main()
