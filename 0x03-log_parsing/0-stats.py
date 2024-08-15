@@ -6,27 +6,6 @@ and handles both regular output every 10 lines,
 and a SIGINT (Ctrl+C) signal gracefully.
 """
 import re
-from typing import Tuple, List
-
-
-def validity(patterns: List[str], values: Tuple[str, ...]) -> bool:
-    """_summary_
-
-    Args:
-        patterns (List[str]): _description_
-        values (Tuple[str]): _description_
-
-    Returns:
-        bool: _description_
-    """
-    is_valid = True
-
-    for pattern, value in zip(patterns, values):
-        if re.match(pattern, value) is None:
-            is_valid = False
-            break
-
-    return is_valid
 
 
 def statistics(status_codes: dict, file_size: int) -> None:
@@ -44,15 +23,7 @@ def statistics(status_codes: dict, file_size: int) -> None:
 
 def main():
     """main"""
-    pattern = r'^([\.|\d]*) - \[([^]]*)\] "([^"]*)" (\d*) (\d*)$'
-    valid_ip = r'^(\d*.\d*){3}'
-    valid_date = r'^\d{4}(-\d{2}){2} (\d|:|\.)*'
-    valid_request = r'^GET \/projects\/260 HTTP\/1.1'
-    valid_status = r'^\d+$'
-    valid_size = r'^\d+$'
-
-    list_of_patterns = [valid_ip, valid_date,
-                        valid_request, valid_status, valid_size]
+    pattern = r'^([\.|\d]*) - \[([^]]*)\] "([^"]*)" ([^ ]*) ([^ ]*)$'
 
     status_codes = {"200": 0, "301": 0, "400": 0,
                     "401": 0, "403": 0, "404": 0, "405": 0, "500": 0}
