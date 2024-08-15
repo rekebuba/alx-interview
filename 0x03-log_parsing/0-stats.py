@@ -48,7 +48,7 @@ def main():
     valid_ip = r'^(\d*.\d*){3}'
     valid_date = r'^\d{4}(-\d{2}){2} (\d|:|\.)*'
     valid_request = r'^GET \/projects\/260 HTTP\/1.1'
-    valid_status = r'^\d{3}$'
+    valid_status = r'^\d+$'
     valid_size = r'^\d+$'
 
     list_of_patterns = [valid_ip, valid_date,
