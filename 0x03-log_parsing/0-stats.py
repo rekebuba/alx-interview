@@ -5,7 +5,6 @@ computes metrics according to the specified format,
 and handles both regular output every 10 lines,
 and a SIGINT (Ctrl+C) signal gracefully.
 """
-import sys
 import re
 from typing import Tuple, List
 
@@ -60,8 +59,10 @@ def main():
     file_size = 0
 
     try:
-        for i, line in enumerate(sys.stdin, start=1):
-            match = re.match(pattern, line.strip())
+        while True:
+            line_num = 1
+            line = input()
+            match = re.match(pattern, line)
 
             if match is not None and validity(
                 list_of_patterns, match.groups()
@@ -74,7 +75,7 @@ def main():
 
                 file_size += int(size)
 
-                if i % 10 == 0:
+                if line_num % 10 == 0:
                     statistics(status_codes, file_size)
     except (KeyboardInterrupt, EOFError):
         statistics(status_codes, file_size)
