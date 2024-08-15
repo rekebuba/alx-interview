@@ -42,7 +42,10 @@ def main():
                 if code in status_codes:
                     status_codes[code] += 1
 
-                file_size += int(size)
+                try:
+                    file_size += int(size)
+                except ValueError:
+                    pass
 
                 if line_num % 10 == 0:
                     statistics(status_codes, file_size)
