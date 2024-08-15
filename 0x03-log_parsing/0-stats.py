@@ -57,10 +57,10 @@ def main():
     status_codes = {"200": 0, "301": 0, "400": 0,
                     "401": 0, "403": 0, "404": 0, "405": 0, "500": 0}
     file_size = 0
+    line_num = 1
 
     try:
         while True:
-            line_num = 1
             line = input()
             match = re.match(pattern, line)
 
@@ -77,6 +77,8 @@ def main():
 
                 if line_num % 10 == 0:
                     statistics(status_codes, file_size)
+
+                line_num += 1
     except (KeyboardInterrupt, EOFError):
         statistics(status_codes, file_size)
 
