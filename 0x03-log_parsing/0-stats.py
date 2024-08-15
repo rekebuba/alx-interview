@@ -5,7 +5,6 @@ computes metrics according to the specified format,
 and handles both regular output every 10 lines,
 and a SIGINT (Ctrl+C) signal gracefully.
 """
-import signal
 import sys
 import re
 from typing import Tuple, List, Any
@@ -44,18 +43,18 @@ def statistics(status_codes: dict, file_size: int) -> None:
             print(f"{key}: {value}")
 
 
-def signal_handler(signum, frame) -> None:
-    """Handle the SIGINT signal (Ctrl+C) by printing statistics.
+# def signal_handler(signum, frame) -> None:
+#     """Handle the SIGINT signal (Ctrl+C) by printing statistics.
 
-    Args:
-        signum (_SIG): indicates which signal was received
-        frame (_type_): provides the current stack frame
-    """
-    if signum == signal.SIGINT:
-        statistics(status_codes, file_size)
+#     Args:
+#         signum (_SIG): indicates which signal was received
+#         frame (_type_): provides the current stack frame
+#     """
+#     if signum == signal.SIGINT:
+#         statistics(status_codes, file_size)
 
 
-signal.signal(signal.SIGINT, signal_handler)
+# signal.signal(signal.SIGINT, signal_handler)
 
 
 pattern = r'^([\.|\d]*) - \[([^]]*)\] "([^"]*)" (\d*) (\d*)$'
@@ -72,17 +71,20 @@ status_codes = {"200": 0, "301": 0, "400": 0,
                 "401": 0, "403": 0, "404": 0, "405": 0, "500": 0}
 file_size = 0
 
-for i, line in enumerate(sys.stdin, start=1):
-    match = re.match(pattern, line.strip())
+try:
+    for i, line in enumerate(sys.stdin, start=1):
+        match = re.match(pattern, line.strip())
 
-    if match is not None and validity(list_of_patterns, match.groups()):
-        code = match.group(4)
-        size = match.group(5)
+        if match is not None and validity(list_of_patterns, match.groups()):
+            code = match.group(4)
+            size = match.group(5)
 
-        if code in status_codes:
-            status_codes[code] += 1
+            if code in status_codes:
+                status_codes[code] += 1
 
-        file_size += int(size)
+            file_size += int(size)
 
-        if i % 10 == 0:
-            statistics(status_codes, file_size)
+            if i % 10 == 0:
+                statistics(status_codes, file_size)
+finally:
+    statistics(status_codes, file_size)
