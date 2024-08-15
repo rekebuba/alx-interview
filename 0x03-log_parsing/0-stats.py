@@ -42,21 +42,6 @@ def statistics(status_codes: dict, file_size: int) -> None:
         if value != 0:
             print(f"{key}: {value}")
 
-
-# def signal_handler(signum, frame) -> None:
-#     """Handle the SIGINT signal (Ctrl+C) by printing statistics.
-
-#     Args:
-#         signum (_SIG): indicates which signal was received
-#         frame (_type_): provides the current stack frame
-#     """
-#     if signum == signal.SIGINT:
-#         statistics(status_codes, file_size)
-
-
-# signal.signal(signal.SIGINT, signal_handler)
-
-
 pattern = r'^([\.|\d]*) - \[([^]]*)\] "([^"]*)" (\d*) (\d*)$'
 valid_ip = r'^(\d*.\d*){3}'
 valid_date = r'^\d{4}(-\d{2}){2} (\d|:|\.)*'
@@ -86,5 +71,5 @@ try:
 
             if i % 10 == 0:
                 statistics(status_codes, file_size)
-finally:
+except (KeyboardInterrupt, EOFError):
     statistics(status_codes, file_size)
