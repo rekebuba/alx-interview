@@ -2,7 +2,8 @@
 """
 A Python script that reads from stdin line by line,
 computes metrics according to the specified format,
-and handles both regular output every 10 lines and a SIGINT (Ctrl+C) signal gracefully.
+and handles both regular output every 10 lines,
+and a SIGINT (Ctrl+C) signal gracefully.
 """
 import signal
 import sys
