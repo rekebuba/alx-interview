@@ -7,14 +7,14 @@ and handles both regular output every 10 lines and a SIGINT (Ctrl+C) signal grac
 import signal
 import sys
 import re
-from typing import Tuple, List
+from typing import Tuple, List, Any
 
 status_codes = {"200": 0, "301": 0, "400": 0,
                 "401": 0, "403": 0, "404": 0, "405": 0, "500": 0}
 file_size = 0
 
 
-def validity(patterns: List[str], values: Tuple[str]) -> bool:
+def validity(patterns: List[str], values: Tuple[str | Any, ...]) -> bool:
     """_summary_
 
     Args:
@@ -63,37 +63,28 @@ def signal_handler(signum, frame) -> None:
 signal.signal(signal.SIGINT, signal_handler)
 
 
-def main():
-    """main program to run"""
-    pattern = r'^([\.|\d]*) - \[([^]]*)\] "([^"]*)" (\d*) (\d*)$'
-    valid_ip = r'^(\d*.\d*){3}'
-    valid_date = r'^\d{4}(-\d{2}){2} (\d|:|\.)*'
-    valid_request = r'^GET \/projects\/260 HTTP\/1.1'
-    valid_status = r'^.*'
-    valid_size = r'^.*'
 
-    list_of_patterns = [valid_ip, valid_date,
-                        valid_request, valid_status, valid_size]
+pattern = r'^([\.|\d]*) - \[([^]]*)\] "([^"]*)" (\d*) (\d*)$'
+valid_ip = r'^(\d*.\d*){3}'
+valid_date = r'^\d{4}(-\d{2}){2} (\d|:|\.)*'
+valid_request = r'^GET \/projects\/260 HTTP\/1.1'
+valid_status = r'^.*'
+valid_size = r'^.*'
 
-    global file_size
-    global status_codes
+list_of_patterns = [valid_ip, valid_date,
+                    valid_request, valid_status, valid_size]
 
-    for i, line in enumerate(sys.stdin, start=1):
-        match = re.match(pattern, line.strip())
+for i, line in enumerate(sys.stdin, start=1):
+    match = re.match(pattern, line.strip())
 
-        if match is not None and validity(list_of_patterns, match.groups()):
-            code = match.group(4)
-            size = match.group(5)
+    if match is not None and validity(list_of_patterns, match.groups()):
+        code = match.group(4)
+        size = match.group(5)
 
-            if code in status_codes:
-                status_codes[code] += 1
+        if code in status_codes:
+            status_codes[code] += 1
 
-            file_size += int(size)
+        file_size += int(size)
 
-            if i % 10 == 0:
-                statistics(status_codes, file_size)
-
-
-if __name__ == '__main__':
-    """Main function"""
-    main()
+        if i % 10 == 0:
+            statistics(status_codes, file_size)
