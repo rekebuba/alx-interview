@@ -10,10 +10,6 @@ import sys
 import re
 from typing import Tuple, List, Any
 
-status_codes = {"200": 0, "301": 0, "400": 0,
-                "401": 0, "403": 0, "404": 0, "405": 0, "500": 0}
-file_size = 0
-
 
 def validity(patterns: List[str], values: Tuple[str | Any, ...]) -> bool:
     """_summary_
@@ -56,8 +52,6 @@ def signal_handler(signum, frame) -> None:
         frame (_type_): provides the current stack frame
     """
     if signum == signal.SIGINT:
-        global file_size
-        global status_codes
         statistics(status_codes, file_size)
 
 
@@ -73,6 +67,10 @@ valid_size = r'^.*'
 
 list_of_patterns = [valid_ip, valid_date,
                     valid_request, valid_status, valid_size]
+
+status_codes = {"200": 0, "301": 0, "400": 0,
+                "401": 0, "403": 0, "404": 0, "405": 0, "500": 0}
+file_size = 0
 
 for i, line in enumerate(sys.stdin, start=1):
     match = re.match(pattern, line.strip())
