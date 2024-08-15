@@ -64,9 +64,7 @@ def main():
             line = input()
             match = re.match(pattern, line)
 
-            if match is not None and validity(
-                list_of_patterns, match.groups()
-            ):
+            if match is not None and len(match.groups()) == 5:
                 code = match.group(4)
                 size = match.group(5)
 
