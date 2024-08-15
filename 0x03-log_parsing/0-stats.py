@@ -42,34 +42,43 @@ def statistics(status_codes: dict, file_size: int) -> None:
         if value != 0:
             print(f"{key}: {value}")
 
-pattern = r'^([\.|\d]*) - \[([^]]*)\] "([^"]*)" (\d*) (\d*)$'
-valid_ip = r'^(\d*.\d*){3}'
-valid_date = r'^\d{4}(-\d{2}){2} (\d|:|\.)*'
-valid_request = r'^GET \/projects\/260 HTTP\/1.1'
-valid_status = r'^.*'
-valid_size = r'^.*'
 
-list_of_patterns = [valid_ip, valid_date,
-                    valid_request, valid_status, valid_size]
+def main():
+    pattern = r'^([\.|\d]*) - \[([^]]*)\] "([^"]*)" (\d*) (\d*)$'
+    valid_ip = r'^(\d*.\d*){3}'
+    valid_date = r'^\d{4}(-\d{2}){2} (\d|:|\.)*'
+    valid_request = r'^GET \/projects\/260 HTTP\/1.1'
+    valid_status = r'^.*'
+    valid_size = r'^.*'
 
-status_codes = {"200": 0, "301": 0, "400": 0,
-                "401": 0, "403": 0, "404": 0, "405": 0, "500": 0}
-file_size = 0
+    list_of_patterns = [valid_ip, valid_date,
+                        valid_request, valid_status, valid_size]
 
-try:
-    for i, line in enumerate(sys.stdin, start=1):
-        match = re.match(pattern, line.strip())
+    status_codes = {"200": 0, "301": 0, "400": 0,
+                    "401": 0, "403": 0, "404": 0, "405": 0, "500": 0}
+    file_size = 0
 
-        if match is not None and validity(list_of_patterns, match.groups()):
-            code = match.group(4)
-            size = match.group(5)
+    try:
+        for i, line in enumerate(sys.stdin, start=1):
+            match = re.match(pattern, line.strip())
 
-            if code in status_codes:
-                status_codes[code] += 1
+            if match is not None and validity(
+                list_of_patterns, match.groups()
+            ):
+                code = match.group(4)
+                size = match.group(5)
 
-            file_size += int(size)
+                if code in status_codes:
+                    status_codes[code] += 1
 
-            if i % 10 == 0:
-                statistics(status_codes, file_size)
-except (KeyboardInterrupt, EOFError):
-    statistics(status_codes, file_size)
+                file_size += int(size)
+
+                if i % 10 == 0:
+                    statistics(status_codes, file_size)
+    except (KeyboardInterrupt, EOFError):
+        statistics(status_codes, file_size)
+
+
+if __name__ == '__main__':
+    """Main function"""
+    main()
