@@ -63,7 +63,6 @@ def signal_handler(signum, frame) -> None:
 signal.signal(signal.SIGINT, signal_handler)
 
 
-
 pattern = r'^([\.|\d]*) - \[([^]]*)\] "([^"]*)" (\d*) (\d*)$'
 valid_ip = r'^(\d*.\d*){3}'
 valid_date = r'^\d{4}(-\d{2}){2} (\d|:|\.)*'
