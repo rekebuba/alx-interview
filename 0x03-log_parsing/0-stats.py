@@ -23,7 +23,7 @@ def statistics(status_codes: dict, file_size: int) -> None:
 
 def main():
     """main"""
-    pattern = r'^([\.|\d]*) - \[([^]]*)\] "([^"]*)" ([^ ]*) ([^ ]*)$'
+    pattern = r'^(\S+) - \[([^]]*)\] "([^"]*)" ([^ ]*) ([^ ]*)$'
 
     status_codes = {"200": 0, "301": 0, "400": 0,
                     "401": 0, "403": 0, "404": 0, "405": 0, "500": 0}
