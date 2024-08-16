@@ -49,7 +49,7 @@ def main():
                 if line_num % 10 == 0:
                     statistics(status_codes, file_size)
 
-                line_num += 1
+            line_num += 1
     except (KeyboardInterrupt, EOFError):
         statistics(status_codes, file_size)
 
