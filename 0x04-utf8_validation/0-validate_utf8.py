@@ -36,4 +36,4 @@ def validUTF8(data: List[int]) -> bool:
             valid = binary[i][0] == '0'
             i += 1
 
-    return False
+    return True
