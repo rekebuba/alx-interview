@@ -5,11 +5,19 @@ from typing import List
 
 
 def validUTF8(data: List[int]) -> bool:
+    """method that determines if a given data set represents
+    a valid UTF-8 encoding.
+
+    Args:
+        data (List[int]): list of integers
+
+    Returns:
+        bool: True or False
+    """
     binary = [bin(value)[2:].zfill(8) for value in data]
     valid = True
-    length = len(binary)
     i = 0
-    while valid and i < length:
+    while valid and i < len(binary):
         try:
             bytes = binary[i].index('0') - 1
         except ValueError:
