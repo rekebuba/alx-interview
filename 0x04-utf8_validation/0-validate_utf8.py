@@ -15,7 +15,7 @@ def validUTF8(data: List[int]) -> bool:
         bool: True or False
     """
     binary = [bin(value)[2:].zfill(8) for value in data]
-    valid = False if len(binary) == 0 else True
+    valid = True
     i = 0
     while valid and i < len(binary):
         try:
