@@ -6,11 +6,16 @@ from typing import List
 
 def validUTF8(data: List[int]) -> bool:
     binary = [bin(value)[2:].zfill(8) for value in data]
+    print(binary)
     valid = True
     length = len(binary)
     i = 0
     while valid and i < length:
-        bytes = binary[i].index('0') - 1
+        try:
+            bytes = binary[i].index('0') - 1
+        except ValueError:
+            bytes = 0
+
         if 4 > bytes > 0:
             i += 1
             while valid and bytes > 0 and i < length:
