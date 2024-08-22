@@ -6,7 +6,6 @@ from typing import List
 
 def validUTF8(data: List[int]) -> bool:
     binary = [bin(value)[2:].zfill(8) for value in data]
-    print(binary)
     valid = True
     length = len(binary)
     i = 0
@@ -18,8 +17,11 @@ def validUTF8(data: List[int]) -> bool:
 
         if 4 > bytes > 0:
             i += 1
-            while valid and bytes > 0 and i < length:
-                valid = binary[i][:2] == '10'
+            while valid and bytes > 0:
+                try:
+                    valid = binary[i][:2] == '10'
+                except IndexError:
+                    valid = False
                 i += 1
                 bytes -= 1
         else:
