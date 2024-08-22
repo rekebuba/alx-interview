@@ -14,8 +14,8 @@ def validUTF8(data: List[int]) -> bool:
     Returns:
         bool: True or False
     """
-    binary = [bin(value)[2:].zfill(8) for value in data]
-    valid = True
+    valid = all(isinstance(x, int) and x >= 0 and x <= 0x10ffff for x in data)
+    binary = [bin(value)[2:].zfill(8) for value in data if valid]
     i = 0
     while valid and i < len(binary):
         try:
@@ -36,4 +36,4 @@ def validUTF8(data: List[int]) -> bool:
             valid = binary[i][0] == '0'
             i += 1
 
-    return valid
+    return False
