@@ -4,7 +4,7 @@
 from typing import List
 
 
-def validUtf8(self, data: List[int]) -> bool:
+def validUTF8(data: List[int]) -> bool:
     binary = [bin(value)[2:].zfill(8) for value in data]
     valid = True
     length = len(binary)
