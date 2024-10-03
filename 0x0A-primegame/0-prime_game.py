@@ -3,7 +3,7 @@
 """
 
 
-def is_winner(rounds: int, nums: list[int]) -> str | None:
+def isWinner(rounds: int, nums: list[int]) -> str | None:
     """Determines the winner of a prime game session with `rounds` rounds.
 
     Args:
