@@ -5,13 +5,15 @@
 
 def is_winner(rounds: int, nums: list[int]) -> str | None:
     """Determines the winner of a prime game session with `rounds` rounds.
-    
+
     Args:
         rounds (int): The number of rounds to play.
-        nums (list[int]): A list of integers representing the upper limits for each round.
-    
+        nums (list[int]): A list of integers representing
+                        the upper limits for each round.
+
     Returns:
-        str | None: The name of the winner ('Maria' or 'Ben'), or None if there is a tie or invalid input.
+        str | None: The name of the winner ('Maria' or 'Ben'),
+                    or None if there is a tie or invalid input.
     """
     if rounds < 1 or not nums:
         return None
