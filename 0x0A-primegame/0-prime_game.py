@@ -18,26 +18,23 @@ def isWinner(rounds, nums):
     if rounds < 1 or not nums:
         return None
 
-    marias_wins = 0
-    bens_wins = 0
-    max_number = max(nums)
+    marias_wins, bens_wins = 0, 0
+    # generate primes with a limit of the maximum number in nums
+    n = max(nums)
+    primes = [True for _ in range(1, n + 1, 1)]
+    primes[0] = False
 
-    # Generate primes using the Sieve of Eratosthenes
-    primes = [True] * (max_number + 1)
-    primes[0] = primes[1] = False  # 0 and 1 are not prime numbers
-
-    for i in range(2, int(max_number**0.5) + 1):
-        if primes[i]:
-            for j in range(i * i, max_number + 1, i):
-                primes[j] = False
+    for i, is_prime in enumerate(primes, 1):
+        if i == 1 or not is_prime:
+            continue
+        for j in range(i + i, n + 1, i):
+            primes[j - 1] = False
 
     # Count wins based on the number of primes up to each number in nums
-    for upper_limit in nums[:rounds]:
-        prime_count = sum(primes[:upper_limit])
-        if prime_count % 2 == 0:
-            bens_wins += 1
-        else:
-            marias_wins += 1
+    for _, n in zip(range(rounds), nums):
+        primes_count = len(list(filter(lambda x: x, primes[0: n])))
+        bens_wins += primes_count % 2 == 0
+        marias_wins += primes_count % 2 == 1
 
     if marias_wins == bens_wins:
         return None
